@@ -112,6 +112,10 @@ section[hidden],
   grid-template-columns: repeat(3, 1fr);
 }
 
+.seg#format-seg {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .seg button {
   cursor: pointer;
   background: transparent;
@@ -265,13 +269,14 @@ input[type="range"] {
   gap: 0.85rem;
   min-width: 0;
   overflow: hidden;
-  background: #6b6660;
+  background: #161616;
   padding: 1.5rem;
 }
 
 .stage-frame {
-  width: min(100%, calc((100vh - 5.5rem) * 16 / 9));
-  aspect-ratio: 16 / 9;
+  width: min(100%, calc((100vh - 4rem) * (var(--board-w, 1600) / var(--board-h, 900))));
+  max-height: calc(100vh - 4rem);
+  aspect-ratio: var(--board-w, 1600) / var(--board-h, 900);
   box-shadow:
     0 0 0 1px #111,
     0 0 0 4px #f4f1ea,

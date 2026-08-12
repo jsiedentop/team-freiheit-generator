@@ -19,10 +19,14 @@
           <button type="button" data-theme="dark">Schwarz</button>
           <button type="button" data-theme="light">Weiß</button>
         </div>
-        <label class="check">
-          <input type="checkbox" id="bg-transparent" />
-          <span>Transparenter Hintergrund</span>
-        </label>
+        <h2>Format</h2>
+        <div class="seg" id="format-seg" role="group" aria-label="Format">
+          <button type="button" data-format="x169">16:9</button>
+          <button type="button" data-format="square">1:1</button>
+          <button type="button" data-format="feed45">4:5</button>
+          <button type="button" data-format="story">9:16</button>
+        </div>
+        <p class="meta" id="format-meta">1600 × 900</p>
       </section>
 
       <section>
@@ -50,7 +54,7 @@
       </section>
 
       <section>
-        <h2>Wortmarke</h2>
+        <h2>Logo</h2>
         <label class="check">
           <input type="checkbox" id="logo-visible" />
           <span>Anzeigen</span>
@@ -63,6 +67,10 @@
 
       <section>
         <h2>Export</h2>
+        <label class="check">
+          <input type="checkbox" id="bg-transparent" />
+          <span>Transparenter Hintergrund</span>
+        </label>
         <button type="button" id="export-png" class="btn btn-solid">Wahlplakat herunterladen</button>
       </section>
     </aside>

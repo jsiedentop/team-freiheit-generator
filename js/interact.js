@@ -30,8 +30,21 @@
     return tag === "input" || tag === "textarea" || tag === "select" || el.isContentEditable;
   }
 
+  function syncStage() {
+    var fmt = TF.getFormat(TF.doc.format);
+    TF.applyCanvasSize(fmt);
+    if (canvas.width !== TF.W) canvas.width = TF.W;
+    if (canvas.height !== TF.H) canvas.height = TF.H;
+    var stage = canvas.closest(".stage") || document.querySelector(".stage");
+    if (stage) {
+      stage.style.setProperty("--board-w", String(TF.W));
+      stage.style.setProperty("--board-h", String(TF.H));
+    }
+  }
+
   function render() {
     if (!ready) return;
+    syncStage();
     TF.paint(ctx, TF.doc, {
       selection: true,
       guides: drag && drag.guides,
@@ -137,6 +150,14 @@
       markSeg(document.getElementById("align-seg"), "data-align", selected.align);
     }
 
+    var formatSeg = document.getElementById("format-seg");
+    if (formatSeg) markSeg(formatSeg, "data-format", TF.doc.format || "x169");
+    var formatMeta = document.getElementById("format-meta");
+    if (formatMeta) {
+      var fmt = TF.getFormat(TF.doc.format);
+      formatMeta.textContent = fmt.w + " × " + fmt.h;
+    }
+
     var bgTransparent = document.getElementById("bg-transparent");
     if (bgTransparent) bgTransparent.checked = !!TF.doc.transparent;
 
@@ -159,6 +180,17 @@
     if (!btn || btn.getAttribute("data-theme") === TF.doc.theme) return;
     TF.pushHistory();
     TF.doc.theme = btn.getAttribute("data-theme");
+    render();
+  });
+
+  document.getElementById("format-seg").addEventListener("click", function (event) {
+    var btn = event.target.closest("button[data-format]");
+    if (!btn) return;
+    var next = btn.getAttribute("data-format");
+    if (next === (TF.doc.format || "x169")) return;
+    TF.pushHistory();
+    TF.setFormat(next);
+    TF.clampAll(ctx);
     render();
   });
 
@@ -371,6 +403,7 @@
 
   function boot() {
     ready = true;
+    TF.applyCanvasSize(TF.getFormat(TF.doc.format));
     if (!TF.doc.selectedId && TF.doc.texts[0]) TF.doc.selectedId = TF.doc.texts[0].id;
     render();
   }

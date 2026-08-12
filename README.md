@@ -1,6 +1,6 @@
 # Team Freiheit poster generator
 
-Unofficial local editor for campaign graphics in the Team Freiheit style: 16:9, Montserrat Black, boxed wordmark.
+Unofficial local editor for campaign graphics in the Team Freiheit style: Montserrat Black, boxed wordmark, export as PNG.
 
 **Not operated by Team Freiheit.** The wordmark is theirs; this is a supporter tool.
 

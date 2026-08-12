@@ -26,6 +26,8 @@ TF.downloadBlob = function (blob, filename) {
 };
 
 TF.exportPng = function (doc) {
+  var fmt = TF.getFormat(doc.format);
+  TF.applyCanvasSize(fmt);
   var canvas = document.createElement("canvas");
   canvas.width = TF.W;
   canvas.height = TF.H;
@@ -33,6 +35,7 @@ TF.exportPng = function (doc) {
   TF.paint(ctx, doc, { selection: false });
   canvas.toBlob(function (blob) {
     if (!blob) return;
-    TF.downloadBlob(blob, "team-freiheit-" + TF.fileSlug(doc) + ".png");
+    var fmt = TF.getFormat(doc.format);
+    TF.downloadBlob(blob, "team-freiheit-" + TF.fileSlug(doc) + "-" + fmt.file + ".png");
   }, "image/png");
 };

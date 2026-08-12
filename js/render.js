@@ -87,7 +87,7 @@ TF.logoMetrics = function (ctx, logo) {
     x: logo.x,
     y: logo.y,
     w: textW + 2 * padX + 2 * border,
-    h: glyph.h + 2 * padY + 2 * border,
+    h: fs + 2 * padY + 2 * border,
     border: border,
     padX: padX,
     padY: padY,
@@ -120,7 +120,8 @@ TF.drawLogo = function (ctx, logo, color) {
     m.h - m.border
   );
   var textX = m.x + m.border + m.padX;
-  var baseline = m.y + m.border + m.padY + m.ascent;
+  var innerH = m.h - 2 * m.border;
+  var baseline = m.y + m.border + (innerH - m.glyphH) / 2 + m.ascent;
   TF.drawTracked(ctx, TF.LOGO_LABEL, textX, baseline, m.fontSize, TF.LOGO_TRACK, "alphabetic");
   ctx.restore();
   return m;
@@ -183,26 +184,12 @@ TF.hitTest = function (ctx, doc, x, y) {
   return null;
 };
 
-TF.drawChecker = function (ctx) {
-  var size = 32;
-  var light = "#d8d4cc";
-  var dark = "#b9b4ab";
-  for (var y = 0; y < TF.H; y += size) {
-    for (var x = 0; x < TF.W; x += size) {
-      ctx.fillStyle = ((x + y) / size) % 2 === 0 ? light : dark;
-      ctx.fillRect(x, y, size, size);
-    }
-  }
-};
-
 TF.paint = function (ctx, doc, opts) {
   opts = opts || {};
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, TF.W, TF.H);
-  if (doc.transparent) {
-    if (opts.selection !== false) TF.drawChecker(ctx);
-  } else {
+  if (!(doc.transparent && opts.selection === false)) {
     ctx.fillStyle = TF.paper(doc);
     ctx.fillRect(0, 0, TF.W, TF.H);
   }
