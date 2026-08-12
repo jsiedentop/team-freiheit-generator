@@ -39,23 +39,64 @@
     syncSidebar();
   }
 
+  function itemBox(id, item) {
+    return id === "logo" ? TF.logoMetrics(ctx, item) : TF.textBox(ctx, item);
+  }
+
+  function edgeXs(box) {
+    return [box.x, box.x + box.w / 2, box.x + box.w];
+  }
+
+  function edgeYs(box) {
+    return [box.y, box.y + box.h / 2, box.y + box.h];
+  }
+
+  function siblingBoxes(exceptId) {
+    var boxes = [];
+    TF.doc.texts.forEach(function (item) {
+      if (item.id !== exceptId) boxes.push(TF.textBox(ctx, item));
+    });
+    if (TF.doc.logo.visible && exceptId !== "logo") {
+      boxes.push(TF.logoMetrics(ctx, TF.doc.logo));
+    }
+    return boxes;
+  }
+
+  function nearestSnap(mines, candidates) {
+    var best = null;
+    mines.forEach(function (mine) {
+      candidates.forEach(function (line) {
+        var delta = line - mine;
+        if (Math.abs(delta) > TF.SNAP) return;
+        if (!best || Math.abs(delta) < Math.abs(best.delta)) {
+          best = { delta: delta, line: line };
+        }
+      });
+    });
+    return best;
+  }
+
   function applySnap(target, id, event) {
-    if (event && event.shiftKey) return { x: false, y: false };
-    var box = id === "logo" ? TF.logoMetrics(ctx, target) : TF.textBox(ctx, target);
-    var midX = TF.W / 2;
-    var midY = TF.H / 2;
-    var cx = box.x + box.w / 2;
-    var cy = box.y + box.h / 2;
-    var guides = { x: false, y: false };
-    if (Math.abs(cx - midX) <= TF.SNAP) {
-      target.x += midX - cx;
-      guides.x = true;
-    }
-    if (Math.abs(cy - midY) <= TF.SNAP) {
-      target.y += midY - cy;
-      guides.y = true;
-    }
-    return guides;
+    if (event && event.shiftKey) return { xs: [], ys: [] };
+    var box = itemBox(id, target);
+    var xCandidates = [TF.W / 2];
+    var yCandidates = [TF.H / 2];
+    siblingBoxes(id).forEach(function (other) {
+      edgeXs(other).forEach(function (v) {
+        xCandidates.push(v);
+      });
+      edgeYs(other).forEach(function (v) {
+        yCandidates.push(v);
+      });
+    });
+    var bestX = nearestSnap(edgeXs(box), xCandidates);
+    var bestY = nearestSnap(edgeYs(box), yCandidates);
+    if (bestX) target.x += bestX.delta;
+    if (bestY) target.y += bestY.delta;
+    return {
+      xs: bestX ? [bestX.line] : [],
+      ys: bestY ? [bestY.line] : [],
+    };
   }
 
   function previewLabel(item) {
@@ -232,7 +273,7 @@
         dx: pt.x - target.x,
         dy: pt.y - target.y,
         moved: false,
-        guides: { x: false, y: false },
+        guides: { xs: [], ys: [] },
         origin: TF.snapshot(),
       };
     } else {

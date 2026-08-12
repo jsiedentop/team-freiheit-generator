@@ -127,23 +127,26 @@ TF.drawLogo = function (ctx, logo, color) {
 };
 
 TF.drawGuides = function (ctx, guides) {
-  if (!guides || (!guides.x && !guides.y)) return;
+  if (!guides) return;
+  var xs = guides.xs || (guides.x ? [TF.W / 2] : []);
+  var ys = guides.ys || (guides.y ? [TF.H / 2] : []);
+  if (!xs.length && !ys.length) return;
   ctx.save();
   ctx.strokeStyle = "#2f6df6";
   ctx.lineWidth = 2;
   ctx.setLineDash([10, 8]);
-  if (guides.x) {
+  xs.forEach(function (x) {
     ctx.beginPath();
-    ctx.moveTo(TF.W / 2, 0);
-    ctx.lineTo(TF.W / 2, TF.H);
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, TF.H);
     ctx.stroke();
-  }
-  if (guides.y) {
+  });
+  ys.forEach(function (y) {
     ctx.beginPath();
-    ctx.moveTo(0, TF.H / 2);
-    ctx.lineTo(TF.W, TF.H / 2);
+    ctx.moveTo(0, y);
+    ctx.lineTo(TF.W, y);
     ctx.stroke();
-  }
+  });
   ctx.restore();
 };
 
