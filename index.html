@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Team-Freiheit Generator</title>
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <header class="brand">
+        <span class="wortmarke-ui">Team Freiheit</span>
+        <p class="kicker">Wahlplakat Generator</p>
+      </header>
+
+      <section>
+        <h2>Stil</h2>
+        <div class="seg" id="theme-seg" role="group" aria-label="Farben">
+          <button type="button" data-theme="dark">Schwarz</button>
+          <button type="button" data-theme="light">Weiß</button>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="bg-transparent" />
+          <span>Transparenter Hintergrund</span>
+        </label>
+      </section>
+
+      <section>
+        <h2>Texte</h2>
+        <ul id="text-list" class="text-list"></ul>
+        <button type="button" id="add-text" class="btn btn-ghost">+ Text hinzufügen</button>
+      </section>
+
+      <section id="text-editor" hidden>
+        <h2>Ausgewählter Text</h2>
+        <label class="field">
+          <span>Inhalt</span>
+          <textarea id="text-input" rows="4" spellcheck="false"></textarea>
+        </label>
+        <label class="field">
+          <span>Schriftgröße <em id="size-val"></em></span>
+          <input type="range" id="font-size" min="24" max="220" step="1" />
+        </label>
+        <div class="seg" id="align-seg" role="group" aria-label="Ausrichtung">
+          <button type="button" data-align="left">Links</button>
+          <button type="button" data-align="center">Mitte</button>
+          <button type="button" data-align="right">Rechts</button>
+        </div>
+        <button type="button" id="delete-text" class="btn btn-ghost danger">Text löschen</button>
+      </section>
+
+      <section>
+        <h2>Wortmarke</h2>
+        <label class="check">
+          <input type="checkbox" id="logo-visible" />
+          <span>Anzeigen</span>
+        </label>
+        <label class="field">
+          <span>Größe <em id="logo-size-val"></em></span>
+          <input type="range" id="logo-size" min="16" max="80" step="1" />
+        </label>
+      </section>
+
+      <section>
+        <h2>Export</h2>
+        <button type="button" id="export-png" class="btn btn-solid">Wahlplakat herunterladen</button>
+      </section>
+    </aside>
+
+    <main class="stage">
+      <div class="stage-frame">
+        <canvas id="board" width="1600" height="900" tabindex="0"></canvas>
+      </div>
+    </main>
+
+    <script src="js/model.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/interact.js"></script>
+  </body>
+</html>

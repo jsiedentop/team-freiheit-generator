@@ -1,0 +1,314 @@
+@font-face {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url("../fonts/montserrat-black.woff2") format("woff2");
+}
+
+:root {
+  --ink: #14110f;
+  --paper: #fbfaf8;
+  --sidebar: #0b0b0b;
+  --line: #2a2a2a;
+  --muted: #8a8680;
+  --accent: #2f6df6;
+  --danger: #e24a3b;
+  --font: Montserrat, system-ui, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  background: #111;
+  color: #fff;
+  font-family: var(--font);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  width: 20.5rem;
+  flex: none;
+  overflow: auto;
+  background: var(--sidebar);
+  border-right: 1px solid var(--line);
+  padding: 1.4rem 1.2rem 2rem;
+}
+
+.brand {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.wortmarke-ui {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  border: 0.16em solid #fff;
+  padding: 0.26em 0.82em 0.12em;
+  font-weight: 900;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.kicker {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin-bottom: 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+section {
+  display: grid;
+  gap: 0.55rem;
+}
+
+section[hidden],
+[hidden] {
+  display: none !important;
+}
+
+.seg {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.seg#align-seg {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.seg button {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #fff;
+  padding: 0.45rem 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.seg button + button {
+  margin-left: -1px;
+}
+
+.seg button.is-on {
+  color: #000;
+  background: #fff;
+}
+
+.seg button:focus-visible,
+.btn:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.text-list {
+  display: grid;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.text-list button {
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.text-list button.is-on {
+  border-color: #fff;
+}
+
+.btn {
+  cursor: pointer;
+  width: 100%;
+  border: 1px solid #fff;
+  padding: 0.62rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.btn-solid {
+  color: #000;
+  background: #fff;
+}
+
+.btn-ghost {
+  background: transparent;
+}
+
+.btn.danger {
+  border-color: var(--danger);
+  color: #ffd8d4;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.field span {
+  display: flex;
+  justify-content: space-between;
+  color: #d8d4ce;
+}
+
+.field em {
+  font-style: normal;
+  color: #fff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 5.5rem;
+  background: #000;
+  border: 1px solid #fff;
+  padding: 0.55rem 0.6rem;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #fff;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.check input {
+  accent-color: #fff;
+  width: 1rem;
+  height: 1rem;
+}
+
+.meta,
+.disclaimer,
+.hint {
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.meta,
+.disclaimer {
+  color: var(--muted);
+}
+
+.disclaimer {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  min-width: 0;
+  overflow: hidden;
+  background: #6b6660;
+  padding: 1.5rem;
+}
+
+.stage-frame {
+  width: min(100%, calc((100vh - 5.5rem) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  box-shadow:
+    0 0 0 1px #111,
+    0 0 0 4px #f4f1ea,
+    0 28px 64px #00000073;
+}
+
+#board {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  cursor: grab;
+  touch-action: none;
+}
+
+#board:active {
+  cursor: grabbing;
+}
+
+.hint {
+  text-align: center;
+  color: #efece6;
+}
+
+@media (max-width: 840px) {
+  body {
+    display: block;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stage {
+    padding: 1rem;
+  }
+}
